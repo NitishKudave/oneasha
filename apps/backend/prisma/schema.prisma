@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = env("DB_PROVIDER")
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  phone     String   @unique
+  password  String?  // Admin-assigned secure password
+  name      String
+  role      String   @default("ASHA")
+  patients  Patient[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  households Household[]
+}
+
+model Patient {
+  id         String   @id @default(uuid())
+  name       String
+  age        String
+  phone      String?
+  address    String?
+  riskFactor String?
+  status     String   @default("Pending")
+  workerId   String
+  worker     User     @relation(fields: [workerId], references: [id])
+  interventions Intervention[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Intervention {
+  id           String   @id @default(uuid())
+  patientId    String
+  patient      Patient  @relation(fields: [patientId], references: [id])
+  notes        String
+  followUpDate String?  // ISO date string for follow-up
+  createdAt    DateTime @default(now())
+}
+
+model Household {
+  id          String   @id @default(uuid())
+  family_name String
+  address     String
+  village     String
+  latitude    Float?
+  longitude   Float?
+  userId      String
+  createdBy   User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  beneficiaries Beneficiary[]
+}
+
+model Beneficiary {
+  id          String   @id @default(uuid())
+  householdId String
+  household   Household @relation(fields: [householdId], references: [id])
+  name        String
+  dateOfBirth DateTime?
+  gender      Gender
+  healthId    String?   @unique // Ayushman Bharat Health Account (ABHA) ID
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+enum Role {
+  ASHA
+  ANM
+  ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}

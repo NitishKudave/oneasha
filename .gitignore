@@ -1,0 +1,11 @@
+# OneASHA
+
+node_modules/
+.env
+apps/backend/prisma/dev.db
+apps/backend/prisma/dev.db-journal
+apps/mobile/.expo/
+apps/web/.next/
+dist/
+build/
+*.log

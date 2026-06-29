@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: oneasha-backend
+    runtime: node
+    rootDir: apps/backend
+    buildCommand: npm install && npx prisma generate
+    startCommand: npx prisma db push && node src/index.js
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: oneasha-db
+          property: connectionString
+      - key: DB_PROVIDER
+        value: postgresql
+      - key: NODE_ENV
+        value: production
+
+databases:
+  - name: oneasha-db
+    databaseName: oneasha
+    user: oneasha_user
+    plan: free

@@ -1,0 +1,20 @@
+{
+  "name": "oneasha-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Unified Offline-First App for ASHA Workers",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev -w apps/web",
+    "dev:mobile": "npm run start -w apps/mobile",
+    "dev:backend": "npm run dev -w apps/backend",
+    "build:web": "npm run build -w apps/web",
+    "build:backend": "npm run build -w apps/backend"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.3"
+  }
+}
