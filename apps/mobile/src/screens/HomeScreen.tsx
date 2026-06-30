@@ -44,7 +44,7 @@ export default function HomeScreen() {
 
       // Fetch follow-up reminders if we have a workerId
       if (workerId) {
-        fetch(`http://localhost:4000/api/reminders/${workerId}`)
+        fetch(`https://oneasha-backend.onrender.com/api/reminders/${workerId}`)
           .then(res => res.json())
           .then(data => setReminders(Array.isArray(data) ? data : []))
           .catch(() => {});
@@ -60,7 +60,7 @@ export default function HomeScreen() {
       if (offlineQueue.length === 0) return;
       
       const queueWithWorker = offlineQueue.map((p: any) => ({ ...p, workerId }));
-      const res = await fetch('http://localhost:4000/api/patients', {
+      const res = await fetch('https://oneasha-backend.onrender.com/api/patients', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(queueWithWorker)

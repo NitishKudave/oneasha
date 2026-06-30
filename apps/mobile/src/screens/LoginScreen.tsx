@@ -22,7 +22,7 @@ export default function LoginScreen() {
     }
     
     try {
-      const res = await fetch('http://localhost:4000/api/auth', {
+      const res = await fetch('https://oneasha-backend.onrender.com/api/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone, password: pin })

@@ -19,7 +19,7 @@ export default function MyPatientsScreen() {
     
     // Fetch ALL patients and filter by worker name — handles cases where
     // workerId was not correctly assigned during earlier syncs
-    fetch(`http://localhost:4000/api/patients`)
+    fetch(`https://oneasha-backend.onrender.com/api/patients`)
       .then(res => res.json())
       .then(data => {
         // Filter by workerId first, then fallback to matching by workerName

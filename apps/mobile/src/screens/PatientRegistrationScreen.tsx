@@ -38,7 +38,7 @@ export default function PatientRegistrationScreen() {
       
       // 3. Attempt network sync immediately
       try {
-        const res = await fetch('http://localhost:4000/api/patients', {
+        const res = await fetch('https://oneasha-backend.onrender.com/api/patients', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(offlineQueue)
