@@ -48,6 +48,24 @@ app.post('/api/workers', async (req, res) => {
 });
 
 // Secure Login API
+app.get('/api/seed-admin', async (req, res) => {
+  try {
+    const admin = await prisma.user.upsert({
+      where: { phone: 'admin' },
+      update: {},
+      create: {
+        name: 'System Admin',
+        phone: 'admin',
+        password: 'admin',
+        role: 'ADMIN'
+      }
+    });
+    res.json({ success: true, admin });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post('/api/auth', async (req, res) => {
   try {
     const { phone, password } = req.body;
